@@ -130,7 +130,7 @@ Note that when Occurrences are created, 2 rows are created in the table (this is
 
 Pagination support is provided out of the box with DynamoDB; see the main Grafeas documentation for how to use this.
 
-No support is currently provided for migration of schemas in the event of changes to the Grafeas structure and thus any c=such migrations will need to be performed manually.
+No support is currently provided for migration of schemas in the event of changes to the Grafeas structure and thus any such migrations will need to be performed manually.
 
 ## Contributing
 
