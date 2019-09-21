@@ -1,10 +1,11 @@
 # Grafeas - DynamoDb
 
+**IMPORTANT:** This project will not build correctly as per these instructions until https://github.com/grafeas/grafeas/pull/383/ has been merged into the main project.  When the project builds correctly, the master branch will publish docker images to the GitHub Package Registry.
+[![Build Status](https://github.com/john-tipper/grafeas-dynamodb/workflows/GitHub%20Actions/badge.svg)](https://github.com/john-tipper/grafeas-dynamodb/actions)
+
 This project provides a [Grafeas](https://github.com/grafeas/grafeas) implementation that supports using AWS DynamoDB as a storage mechanism.
 
 ## Building
-
-**IMPORTANT:** This project will not build correctly as per these instructions until https://github.com/grafeas/grafeas/pull/383/ has been merged into the main project.
 
 Build using the provided Makefile or via Docker.
 
@@ -90,6 +91,12 @@ go run main/main.go  -- --config /path/to/your/config.yaml
 
 This will start the Grafeas gRPC and REST APIs on `localhost:8080`.
 
+The server can also be started by using the image published to the Github Package Registry:
+
+```shell
+docker run -p 8080:8080 -v /path/to/config.yaml:/grafeas/config.yaml docker.pkg.github.com/john-tipper/grafeas --config /grafeas/config.yaml
+```
+
 ## DynamoDB Details
 
 ### Preamble
@@ -131,6 +138,11 @@ Note that when Occurrences are created, 2 rows are created in the table (this is
 Pagination support is provided out of the box with DynamoDB; see the main Grafeas documentation for how to use this.
 
 No support is currently provided for migration of schemas in the event of changes to the Grafeas structure and thus any such migrations will need to be performed manually.
+
+### Consistency and Billing
+
+Strict consistency is used for queries and gets that make use of the GPI; all others use eventual consistency.
+Billing is set to per-request: this will be more expensive if you have many queries, but for experimenting at low query volumes then this will likely be the cheapest option. 
 
 ## Contributing
 
