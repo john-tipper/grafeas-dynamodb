@@ -32,7 +32,7 @@ type DynamoDb struct {
 	TableName string
 }
 
-func DynamodbStorageTypeProvider(storageType string, storageConfig *interface{}) (*storage.Storage, error) {
+func DynamodbStorageTypeProvider(storageType string, storageConfig *grafeasConfig.StorageConfiguration) (*storage.Storage, error) {
 	if storageType != "dynamodb" {
 		return nil, errors.New(fmt.Sprintf("Unknown storage type %s, must be 'dynamodb'", storageType))
 	}
