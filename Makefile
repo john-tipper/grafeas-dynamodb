@@ -22,8 +22,18 @@ build: vet fmt generate
 fmt:
 	@gofmt -l -w $(SRC)
 
+pre-test:
+	mkdir -p test
+	bash -c "if [ ! -f test/dynamodb_local_latest.tgz ]; then curl https://s3.eu-central-1.amazonaws.com/dynamodb-local-frankfurt/dynamodb_local_latest.tar.gz -o test/dynamodb_local_latest.tgz -L; fi"
+	tar xf test/dynamodb_local_latest.tgz -C test
+	bash -c 'cd test; java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb & echo $$! > dynamo.pid'
+
 test: generate
 	@go test -v ./...
+
+post-test:
+	bash -c "kill $$(cat test/dynamo.pid)"
+	rm -f test/dynamo.pid
 
 vet: generate
 	@go vet ./...
@@ -36,3 +46,4 @@ generate:
 clean: generate
 	go clean ./...
 	rm -rf $(CLEAN)
+	rm -rf test grafeas

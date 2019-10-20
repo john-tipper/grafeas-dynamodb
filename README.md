@@ -1,6 +1,6 @@
 # Grafeas - DynamoDb
 
-**IMPORTANT:** This project will not build correctly as per these instructions until https://github.com/grafeas/grafeas/pull/383/ has been merged into the main project.  When the project builds correctly, the master branch will publish docker images to the GitHub Package Registry.
+The master branch publishes docker images to the GitHub Package Registry.
 
 [![Build Status](https://github.com/john-tipper/grafeas-dynamodb/workflows/GitHub%20Actions/badge.svg)](https://github.com/john-tipper/grafeas-dynamodb/actions)
 
