@@ -12,18 +12,16 @@ jobs:
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag docker.pkg.github.com/${{ github.repository }}:${{ github.sha }}
 
-      - name: Filter non-master branches
-        uses: actions/bin/filter@master
-        with:
-          args: "branch master"
-
       - name: Log in to registry
+        if: github.ref == 'refs/heads/master'
         run: docker login docker.pkg.github.com -u ${{ github.actor }} -p ${{ secrets.package_registry_token }}
 
-      # this will cause an issue of we run two jobs simultaneously and the latest one finishes after the first
+      # this will cause an issue if we run two jobs simultaneously and the latest one finishes after the first
       # we can get around this later by doing semver properly
       - name: Tag the Docker image as latest
+        if: github.ref == 'refs/heads/master'
         run: docker tag docker.pkg.github.com/${{ github.repository }}:${{ github.sha }} docker.pkg.github.com/${{ github.repository }}:latest
 
       - name: Publish to GitHub Package Registry
+        if: github.ref == 'refs/heads/master'
         run: docker push docker.pkg.github.com/${{ github.repository }}:${{ github.sha }} && docker push docker.pkg.github.com/${{ github.repository }}:latest
