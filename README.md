@@ -1,7 +1,5 @@
 # Grafeas - DynamoDb
 
-The master branch publishes docker images to the GitHub Package Registry.
-
 [![Build Status](https://github.com/john-tipper/grafeas-dynamodb/workflows/GitHub%20Actions/badge.svg)](https://github.com/john-tipper/grafeas-dynamodb/actions)
 
 This project provides a [Grafeas](https://github.com/grafeas/grafeas) implementation that supports using AWS DynamoDB as a storage mechanism.
@@ -20,13 +18,15 @@ docker build --rm .
 
 ## Unit tests
 
-Testing is performed against a Docker container that contains the AWS-provided image that starts a local DynamoDB instance, https://hub.docker.com/r/amazon/dynamodb-local.  This requires that you have Docker installed on your build server and that the Docker daemon is running.  The container is controlled through Golang.
+Testing is performed against a DynamoDB instance.  The Makefile offers the ability to start and stop a locally installed DynamoDB instance running via Java.  This requires that port 8000 be free.
 
 ```shell
+# BRING YOUR OWN DYNAMODB ON PORT 8000
 make test
-```
 
-The container is started prior to the tests running and is stopped when the tests finish.  The container is called `dynamoDbTestingContainer` and by default runs on port `8000`.  If you have a service running on that port then this can be overridden by setting the environment variable `GRAFEAS_DYNAMODB_TEST_PORT` to an alternative port.  
+# OR USE THE LOCAL JAVA DYNAMODB INSTANCE
+make pre-test test post-test
+```
 
 ## Configuring
 
@@ -92,10 +92,10 @@ go run main/main.go  -- --config /path/to/your/config.yaml
 
 This will start the Grafeas gRPC and REST APIs on `localhost:8080`.
 
-The server can also be started by using the image published to the Github Package Registry:
+The master branch publishes docker images to the [GitHub Package Registry here](https://github.com/john-tipper/grafeas-dynamodb/packages/).  There is no versioning at present.  The server can be started by using the image:
 
 ```shell
-docker run -p 8080:8080 -v /path/to/config.yaml:/grafeas/config.yaml docker.pkg.github.com/john-tipper/grafeas --config /grafeas/config.yaml
+docker run -p 8080:8080 -v /path/to/config.yaml:/grafeas/config.yaml docker.pkg.github.com/john-tipper/grafeas-dynamodb/grafeas-dynamodb:latest --config /grafeas/config.yaml
 ```
 
 ## DynamoDB Details
