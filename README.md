@@ -18,13 +18,15 @@ docker build --rm .
 
 ## Unit tests
 
-Testing is performed against a Java instance of a local DynamoDB instance.  This requires that port 8000 is free.
+Testing is performed against a DynamoDB instance.  The Makefile offers the ability to start and stop a locally installed DynamoDB instance running via Java.  This requires that port 8000 be free.
 
 ```shell
+# BRING YOUR OWN DYNAMODB ON PORT 8000
 make test
-```
 
-The instance is started prior to the tests running and is stopped when the tests finish.  
+# OR USE THE LOCAL JAVA DYNAMODB INSTANCE
+make pre-test test post-test
+```
 
 ## Configuring
 
