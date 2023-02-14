@@ -5,7 +5,7 @@ go 1.12
 require (
 	github.com/Azure/go-ansiterm v0.0.0-20170929234023-d6e3b3328b78 // indirect
 	github.com/Microsoft/go-winio v0.4.14 // indirect
-	github.com/aws/aws-sdk-go v1.24.1
+	github.com/aws/aws-sdk-go v1.34.0
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/docker v1.13.1
 	github.com/docker/go-connections v0.4.0
@@ -19,7 +19,7 @@ require (
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/sirupsen/logrus v1.4.2 // indirect
-	golang.org/x/net v0.0.0-20190918130420-a8b05e9114ab
+	golang.org/x/net v0.0.0-20200202094626-16171245cfb2
 	golang.org/x/sys v0.0.0-20190919044723-0c1ff786ef13 // indirect
 	google.golang.org/genproto v0.0.0-20190916214212-f660b8655731
 	google.golang.org/grpc v1.23.1
